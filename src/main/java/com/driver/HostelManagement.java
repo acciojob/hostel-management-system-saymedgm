@@ -11,15 +11,25 @@ public class HostelManagement {
     }
 
     public void addStudent(String studentId, String name) {
-    	//your code goes here
+        studentRoomMap.put(studentId, name);
+        HostelLogger.logInfo("Student " + name + " added with ID " + studentId);
     }
 
     public void allocateRoom(String studentId, String roomNumber) {
-    	//your code goes here
+        if (studentRoomMap.containsKey(studentId)) {
+            HostelLogger.logInfo("Room " + roomNumber + " allocated to student with ID " + studentId);
+        } else {
+            HostelLogger.logWarning("Student with ID " + studentId + " not found.");
+        }
     }
 
     public boolean isRoomAvailable(String roomNumber) {
-    	//your code goes here
+        for (String studentId : studentRoomMap.keySet()) {
+            if (studentRoomMap.get(studentId).equals(roomNumber)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
